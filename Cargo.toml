@@ -7,3 +7,4 @@ edition = "2024"
 rand = "0.10.2"
 argon2 = "0.6"
 chacha20poly1305 = "0.11"
+clap = { version = "4.6.7", features = ["derive"] }

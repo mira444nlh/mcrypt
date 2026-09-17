@@ -1,21 +1,28 @@
-mod config;
+mod arguments;
 mod crypto;
 mod error;
 mod file;
 mod password;
 
+use clap::Parser;
 use error::McrError;
 
 fn main() -> Result<(), McrError> {
-    let cfg = config::Config::parse()?;
-    let data = file::read(&cfg.input())?;
+    let args = arguments::Cli::parse();
     let password = password::get_password()?;
 
-    let result = match cfg.action() {
-        config::Action::Encrypt => crypto::encrypt(&data, &password)?,
-        config::Action::Decrypt => crypto::decrypt(&data, &password)?,
-    };
+    match args.command {
+        arguments::Commands::Decrypt { input, output } => {
+            let data = file::read(&input)?;
+            let result = crypto::decrypt(&data, &password)?;
+            file::write(&output.unwrap_or(input), &result)?;
+        }
+        arguments::Commands::Encrypt { input, output } => {
+            let data = file::read(&input)?;
+            let result = crypto::encrypt(&data, &password)?;
+            file::write(&output.unwrap_or(input), &result)?;
+        }
+    }
 
-    file::write(&cfg.output(), &result)?;
     Ok(())
 }
