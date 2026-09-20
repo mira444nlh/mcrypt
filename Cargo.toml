@@ -1,5 +1,5 @@
 [package]
-name = "file_encryptor"
+name = "mcrypt"
 version = "0.1.0"
 edition = "2024"
 
@@ -8,3 +8,5 @@ rand = "0.10.2"
 argon2 = "0.6"
 chacha20poly1305 = "0.11"
 clap = { version = "4.6.7", features = ["derive"] }
+rpassword = "7.5.4"
+colored = "3.1.1"

@@ -1,4 +1,4 @@
-use clap::{Args, Parser, Subcommand};
+use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 
 // TODO implement getters
@@ -7,6 +7,9 @@ use std::path::PathBuf;
 #[command(version = "0.2")]
 #[command(about = "A simple file encryptor", long_about = None)]
 pub struct Cli {
+    #[arg(short, long)]
+    pub silent: bool,
+
     #[command(subcommand)]
     pub command: Commands,
 }
@@ -14,15 +17,15 @@ pub struct Cli {
 #[derive(Subcommand)]
 pub enum Commands {
     Encrypt {
-        input: String,
+        input: PathBuf,
 
         #[arg(short, long)]
-        output: Option<String>,
+        output: Option<PathBuf>,
     },
     Decrypt {
-        input: String,
+        input: PathBuf,
 
         #[arg(short, long)]
-        output: Option<String>,
+        output: Option<PathBuf>,
     },
 }

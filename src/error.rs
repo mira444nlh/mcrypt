@@ -8,16 +8,9 @@ pub enum CryptoError {
 }
 
 #[derive(Debug)]
-pub enum ConfigError {
-    MissingArgument,
-    InvalidAction,
-}
-
-#[derive(Debug)]
 pub enum McrError {
     Io(std::io::Error),
     Crypto(CryptoError),
-    Config(ConfigError),
 }
 
 impl From<std::io::Error> for McrError {
@@ -29,11 +22,5 @@ impl From<std::io::Error> for McrError {
 impl From<CryptoError> for McrError {
     fn from(error: CryptoError) -> Self {
         McrError::Crypto(error)
-    }
-}
-
-impl From<ConfigError> for McrError {
-    fn from(error: ConfigError) -> Self {
-        McrError::Config(error)
     }
 }
