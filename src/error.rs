@@ -1,26 +1,28 @@
-#[derive(Debug)]
+use thiserror::Error;
+
+#[derive(Error, Debug)]
 pub enum CryptoError {
+    #[error("Invalid key")]
     InvalidKey,
+
+    #[error("Incorrect password")]
     DecryptionFailed,
+
+    #[error("Encryption failed")]
     EncryptionFailed,
+
+    #[error("Invalid file format")]
     InvalidFileFormat,
+
+    #[error("Key derivation failed")]
     KeyDerivationFailed,
 }
 
-#[derive(Debug)]
+#[derive(Error, Debug)]
 pub enum McrError {
-    Io(std::io::Error),
-    Crypto(CryptoError),
-}
+    #[error("Input-output error: {0}")]
+    Io(#[from] std::io::Error),
 
-impl From<std::io::Error> for McrError {
-    fn from(error: std::io::Error) -> Self {
-        McrError::Io(error)
-    }
-}
-
-impl From<CryptoError> for McrError {
-    fn from(error: CryptoError) -> Self {
-        McrError::Crypto(error)
-    }
+    #[error("Cryptographic error: {0}")]
+    Crypto(#[from] CryptoError),
 }

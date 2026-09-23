@@ -6,8 +6,16 @@ mod password;
 
 use clap::Parser;
 use error::McrError;
+use std::process;
 
-fn main() -> Result<(), McrError> {
+fn main() {
+    if let Err(e) = run() {
+        eprintln!("Error: {e}");
+        process::exit(1);
+    }
+}
+
+fn run() -> Result<(), McrError> {
     let args = arguments::Cli::parse();
 
     match args.command {
