@@ -71,12 +71,6 @@ powershell -ExecutionPolicy Bypass -c "irm https://github.com/mira444nlh/mcrypt/
 
 Alternatively, download the archive for your platform from the [releases page](https://github.com/mira444nlh/mcrypt/releases), extract it, and put `mcrypt` somewhere on your `PATH`.
 
-### Homebrew
-
-```sh
-brew install mira444nlh/tap/mcrypt
-```
-
 ### Build from source
 
 Requires the [Rust toolchain](https://rustup.rs/).
