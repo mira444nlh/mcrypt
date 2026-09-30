@@ -4,8 +4,8 @@ use std::path::PathBuf;
 #[derive(Parser)]
 #[command(
     name = "mcrypt",
-    version = "0.3",
-    about = "A simple file encryption and decryption utility",
+    version,
+    about,
     long_about = "\
 mcrypt is a simple command-line utility for encrypting and decrypting files.
 
